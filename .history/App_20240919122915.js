@@ -55,9 +55,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={loginImage} style={styles.logo} />
-      <Text style={styles.title}>Login</Text>
-      
+      <Text style={styles.title}>{isLogin ? 'Login' : 'Cadastre-se'}</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -73,44 +71,13 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      
-      <Button title="Login" onPress={handleLogin} />
-    </View>
-  );
-};
-
-
-
-
-
-
-
-const RecuperarSenhaScreen = () => {
-  const [email, setEmail] = useState('');
-
-  const handleRecuperarSenha = () => {
-    if (email === '') {
-      Alert.alert('Erro', 'Por favor, preencha o campo de email.');
-    } else {
-      
-      Alert.alert('Sucesso', 'Um email de recuperação foi enviado.');
-    }
-  };
-
-  return (
-    <View style={styles.container}>
-      <Image source={recupImage} style={styles.logo} />
-      <Text style={styles.title}>Recuperar Senha</Text>
-      
-      <TextInput
-        style={styles.input}
-        placeholder="Digite seu email"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
+      <Button
+        title={isLogin ? 'Entrar' : 'Registrar'}
+        onPress={isLogin ? handleLogin : handleRegister}
       />
-      
-      <Button title="Recuperar Senha" onPress={handleRecuperarSenha} />
+      <Text style={styles.switchText} onPress={() => setIsLogin(!isLogin)}>
+        {isLogin ? 'Ainda não tem uma conta? Cadastre-se' : 'Já tem uma conta? Faça login'}
+      </Text>
     </View>
   );
 };
@@ -119,32 +86,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#f5f5f5',
+    padding: 16,
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
+    marginBottom: 24,
     textAlign: 'center',
   },
   input: {
-    height: 50,
-    borderColor: '#ccc',
+    height: 40,
+    borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    backgroundColor: '#fff',
+    marginBottom: 12,
+    paddingHorizontal: 8,
   },
-  spacing: {
-    marginVertical: 10,
-  },
-  logo: {
-    width: 250,
-    height: 250,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    marginBottom: 20,
+  switchText: {
+    marginTop: 12,
+    color: 'blue',
+    textAlign: 'center',
   },
 });
 
